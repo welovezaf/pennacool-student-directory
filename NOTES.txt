@@ -1,0 +1,32 @@
+important parts of assignment
+ 
+
+meanings of commands i ran through in powershell and docker:
+
+- pwd = print working directory (tells me which folder im in right now).
+- dir = directory listing (shows me what is inside the folder im  currently in. Eg: pennacool-intern-exercise has docker-compose, app (index.php), dockerfile, readme, db, bridge).
+- cd = change directory (moves me into another folder that i tell it to...go into this folder)
+- docker-compose up --build = starts up the docker app/ reads the docker-compose.yml/ starts all containers web and db, connecting them together [builds and starts up the whole docker app])
+- docker-compose down = shuts down everything 
+- docker ps = docker process status (shows me what containers are currently running)
+- ctrl + C (in docker app) = stops running a command
+
+
+STEP BY STEP PROCESS:
+
+1. opened powershell/terminal by clicking the windows key 
+2. went specifically to the project folder by opening the intern exercise folder (cd Downloads\pennacool-intern-exercise\pennacool-intern-exercise)
+3. started up the docker app by typing in this: docker-compose up --build. This reads the docker compose file, building the PHP/Apache container and the MySQL, connecting them together.
+4. ran the "http://localhost:8080/index.php" on my google chrome, this is where i got some issues (because i did not connect the app folder or create the index.php file yet -- i will attach screenshots as required within the email).
+5. created an index.php file, which i put into the app folder. It contained important sql code like: $host = 'db';
+$db   = 'studentsdb';
+$user = 'studentuser';
+$pass = 'studentpw';
+The database host is called db, which is the service name of the MySQL container in Docker Compose. Docker handles the networking, so PHP can connect using that name.
+6. new PDO(...) this means that I’m using PDO to connect to MySQL. If the connection fails, the app stops and shows me an error  message.
+7. SELECT * FROM students -- on page load, i query the students table, fetching all the records
+8. fetchAll(PDO::FETCH_ASSOC). this returns all the data as an array, looping through to generate the HTML table. The correct output of the "http://localhost:8080/index.php" will be shown on the email as an attachment
+9. I then used the GET form to search the value which appears in the URL (<form method="get">)
+10. If I enter a search term, I modify the SQL query using a LIKE condition ($search = $_GET['search'] ?? '';)
+11. my prepared statement was used to prevent SQL injection (WHERE last_name LIKE ?)
+12. I will attach the output of the live filter working by typing in a last name "Gomes"
